@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h4><center>GPIO STATUS</center></h4>
+
+<center><button style="width:220px" id=0 type="button" align="middle" onclick="OnHTMLTitleChanged(id)" >GPIO0</button>
+	<button style="width:220px" id=1 type="button" align="middle" onclick="loadDoc1(id)" >GPIO1</button></center><br>
+<center><button style="width:220px" id=2 type="button" align="middle" onclick="loadDoc1(id)" >GPIO2</button>
+	<button style="width:220px" id=3 type="button" align="middle" onclick="loadDoc1(id)" >GPIO3</button></center><br>
+<center><button style="width:220px" id=4 type="button" align="middle" onclick="loadDoc1(id)" >GPIO4</button>
+	<button style="width:220px" id=5 type="button" align="middle" onclick="loadDoc1(id)" >GPIO5</button></center><br>
+<center><button style="width:220px" id=6 type="button" align="middle" onclick="loadDoc1(id)" >GPIO6</button>
+	<button style="width:220px" id=7 type="button" align="middle" onclick="loadDoc1(id)" >GPIO7</button></center><br>
+<center><button style="width:220px" id=8 type="button" align="middle" onclick="loadDoc1(id)" >GPIO8</button>
+	<button style="width:220px" id=9 type="button" align="middle" onclick="loadDoc1(id)" >GPIO9</button></center><br>
+<center><button style="width:220px" id=10 type="button" align="middle" onclick="loadDoc1(id)" >GPIO10</button>
+	<button style="width:220px" id=11 type="button" align="middle" onclick="loadDoc1(id)" >GPIO11</button></center><br>
+<center><button style="width:220px" id=12 type="button" align="middle" onclick="loadDoc1(id)" >GPIO12</button>
+	<button style="width:220px" id=13 type="button" align="middle" onclick="loadDoc1(id)" >GPIO13</button></center><br>
+<center><button style="width:220px" id=14 type="button" align="middle" onclick="loadDoc1(id)" >GPIO14</button>
+	<button style="width:220px" id=15 type="button" align="middle" onclick="loadDoc1(id)" >GPIO15</button></center><br>
+<center><button style="width:220px" id=16 type="button" align="middle" onclick="loadDoc1(id)" >GPIO16</button>
+	<button style="width:220px" id=17 type="button" align="middle" onclick="loadDoc1(id)" >GPIO17</button></center><br>
+<center><button style="width:220px" id=18 type="button" align="middle" onclick="loadDoc1(id)" >GPIO18</button>
+	<button style="width:220px" id=19 type="button" align="middle" onclick="loadDoc1(id)" >GPIO19</button></center>
+
+<script>
+
+var value;
+setInterval(loadDoc2, 1000);
+
+function loadDoc2() {
+	var i, j, response;
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		}	
+		response = xhttp.responseText.split(":");
+		for(value = 0; value < 20; value++)
+		{
+			if (response[value] == "1")
+			{
+				document.getElementById(value).innerHTML = "GPIO"+"IN"+value;
+				document.getElementById(value).style.backgroundColor = 'Skyblue';
+				document.getElementById(value).style.height="30px";
+			}
+			else
+			{
+				document.getElementById(value).innerHTML = "GPIO"+"OUT"+value;
+				document.getElementById(value).style.backgroundColor = 'Orange';
+				document.getElementById(value).style.height="30px";
+			}
+		}
+	};
+	xhttp.open("POST", "counter.api", true);
+	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhttp.send("counter=1");
+}
+
+function loadDoc1(id) {
+	var xhttp = new XMLHttpRequest();
+	var i, response;
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		}
+	};
+	xhttp.open("POST", "counter.api", true);
+	xhttp.send(id);
+}
+
+</script>
+
+</body>
+</html>
